@@ -46,7 +46,9 @@ module Bittrex
     end
 
     def self.history
-      client.get('account/getorderhistory').map{|data| new(data) }
+      orders = client.get('account/getorderhistory')
+      return [] if orders.nil? || orders.empty?
+      orders.map{|data| new(data) }
     end
 
     private
